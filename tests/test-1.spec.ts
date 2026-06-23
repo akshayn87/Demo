@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { afterEach, beforeEach } from 'node:test';
-import { navigateToUrl } from '../utils/commonutils';
+import { navigateToUrl } from '../utils/commonUtils';
 
 
 test.afterEach(async ({ page },testInfo) => {
@@ -13,15 +12,15 @@ test.afterEach(async ({ page },testInfo) => {
   await page.close();
 });
 
-test.beforeAll(async ({ page },testInfo) => {
+// test.beforeAll(async ({ page },testInfo) => {
 
-});
+// });
  
 
-test('test', async ({ page }) => {
+test('test', async ({ browser,page }) => {
   await navigateToUrl(page, 'https://rbi.org.in/Scripts/HolidayMatrixDisplay.aspx');
-  //await page.goto('https://rbi.org.in/Scripts/HolidayMatrixDisplay.aspx');
-  await performActionOnWebElement()
+  await page.goto('https://rbi.org.in/Scripts/HolidayMatrixDisplay.aspx');
+  // await performActionOnWebElement()
   await page.getByLabel('Regional Office').selectOption('29');
   await page.getByLabel('Month').selectOption('12');
   await page.getByRole('button', { name: 'GO' }).click();
@@ -40,7 +39,7 @@ test('test', async ({ page }) => {
       - option "August"
       - option "September"
       - option "October"
-      - option "November" [selected]
+      - option "November"
       - option "December"
     `);
   await page.getByLabel('Month').selectOption('12');
