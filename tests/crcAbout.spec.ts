@@ -1,13 +1,9 @@
-import { Locator, Page } from '@playwright/test';
-import { TIMEOUTS } from '../src/config/constants';
+import { test, expect } from './fixtures';
 
-export async function waitForReady(page: Page): Promise<void> {
-  await page.waitForLoadState('domcontentloaded');
-  await page.waitForLoadState('networkidle').catch(() => undefined);
-}
-
-export async function waitInteractable(locator: Locator): Promise<void> {
-  await locator.waitFor({ state: 'visible', timeout: TIMEOUTS.action });
-  await locator.scrollIntoViewIfNeeded();
-}
+test('crc about page loads and shows navigation', async ({ crcAboutPage }) => {
+  await crcAboutPage.goto();
+  await crcAboutPage.assertLoaded();
+  await crcAboutPage.assertNavigationVisible();
+  expect(crcAboutPage.url()).toContain('/About-Us');
+});
 
